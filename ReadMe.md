@@ -1,8 +1,36 @@
-# Python Numba benchmark
-A simple benchmark that checks the performance difference after JIT is applied to Python by numba. The benchmark looks for primes in the range 0-199999 and writes the result to a file. The benchmark result is the amount of time it takes to perform the calculations, it is printed on the screen. Work on single core only!
+# Numba benchmark
+This repository contains programs that test the performance of a single processor core by finding prime numbers in a given range (0-199999 by default). In addition to comparing the performance of different processors, it was also written to compare the performance of vanilla python with performance using the just-in-time compiler Numba (hence the name) and the C++ compiler's.
 
-### python3 jit.py (With Numba JIT)
-* Time elapsed: 6.884712938
+## Running
 
-### python3 metal.py (Without Numba JIT)
- * Time elapsed: 182.266834501
+### Python3 (With Numba JIT)
+ * You must have Numba installed (learn more at http://numba.pydata.org/)
+ * python3 numba_python_jit.py
+
+### python3 (Without Numba JIT)
+ * You don't need a Numba package
+ * python3 numba_python_vanilla.py
+ 
+### C++ 
+ * You can compile the project using your favorite compiler, preferably with the highest optimization possible
+ * For example, linux and GCC: g++ numba_cpp.cpp -O3 -o numba_cpp.run
+ * Or you can use precompiled binaries (for linux x86, linux ARM, windows x86) all compiled natively, no cross compilation, in the bin directory
+ * Then run it, for example linux: ./numba_cpp.run
+ 
+## Sample results
+
+### Intel i7-3740QM (Arch Linux x86_64, Turbo Boost off)
+ * 5.741102 - C++
+ * 10.660679271 - Python JIT
+ * 131.175513498 - Python vanilla
+ 
+### Intel i7-3740QM (Arch Linux x86_64, Turbo Boost on)
+ * 5.739938 - C++
+ * 7.818004449000001 - Python JIT
+ * 95.616951256 - Python vanilla
+ 
+### MediaTek mt8173 (Chrome OS, Linux container)
+ * 5.857472 - C++
+ * 6.885304478 - Python JIT
+ * 181.290418972 - Python vanilla
+ 
