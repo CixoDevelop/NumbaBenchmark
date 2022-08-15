@@ -20,17 +20,17 @@ This repository contains programs that test the performance of a single processo
 ## Sample results
 
 ### Intel i7-3740QM (Arch Linux x86_64, Turbo Boost off)
- * 5.741102 - C++
+ * 5.748610 - C++
  * 10.660679271 - Python JIT
  * 131.175513498 - Python vanilla
  
 ### Intel i7-3740QM (Arch Linux x86_64, Turbo Boost on)
- * 5.739938 - C++
+ * 4.224961 - C++
  * 7.818004449000001 - Python JIT
  * 95.616951256 - Python vanilla
  
 ### MediaTek mt8173 (Chrome OS, Linux container)
- * 5.857472 - C++
+ * 5.840652 - C++
  * 6.885304478 - Python JIT
  * 181.290418972 - Python vanilla
  
