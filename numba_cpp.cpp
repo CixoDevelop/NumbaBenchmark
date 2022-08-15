@@ -12,6 +12,7 @@
 #include <fstream>
 #include <string>
 #include <time.h>
+#include <chrono>
 #include <cstdlib>
 
 
@@ -72,19 +73,19 @@ static bool
  * benchmark range size.
  *
  * Params:
- * ++ time (double): Elapsed time
+ * ++ time (long): Elapsed time in us
  * ++ side (int): Benchmark area size
  *
  * Return:
  * ++ string: Benchmark summary
  */
 static std::string 
-	createSummary (double time, int size)
+	createSummary (long time, int size)
 {
 	std::string summary;
 	
 	summary += "Benchmark results:\n";
-	summary += "\tTime elapsed: " + std::to_string (time) + "\n";
+	summary += "\tTime elapsed: " + std::to_string ((double) (time) / 1000000) + "\n";
 	summary += "\tBenchmark size: 0 - " + std::to_string (size) + "\n";
 	
 	return summary;
@@ -148,14 +149,18 @@ int
 	std::string log;
 	
 	/* Save start time */
-	clock_t start = clock ();
+	auto start = std::chrono::steady_clock::now (); 
 	
 	/* Check all numbers in range */
 	for (int count = 0; count < benchmark_size; count ++)
 		log += createNumberSummary (count);
 	
+	/* Save end time */
+	auto end = std::chrono::steady_clock::now ();
+	
 	/* Calculate elapsed time */
-	double time_elapsed = ((double) (clock () - start)) / CLOCKS_PER_SEC;
+	long time_elapsed = (long) 
+	(std::chrono::duration_cast <std::chrono::microseconds> (end - start).count ());
 	
 	/* Create benchmark summary */
 	std::string summary = createSummary (time_elapsed, benchmark_size);
